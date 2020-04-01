@@ -1,4 +1,12 @@
 {
     "extends": ["eslint:recommended", "google"],
+    "env": {
+        "amd": true,
+        "es6": true,
+        "node": true
+    },
+    "parserOptions": {
+        "ecmaVersion": 2017
+    },
     "rules": {}
 }

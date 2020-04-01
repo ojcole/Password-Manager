@@ -3,10 +3,15 @@
     "version": "1.0.0",
     "description": "A simple password managment tool written for electron",
     "main": "build/main.js",
+    "author": "Oliver Cole <oliver@cole2.com>",
+    "license": "MIT",
     "scripts": {
         "test": "spectron",
         "preinstall": "npx npm-force-resolutions",
-        "start": "tsc && cp -r src/html build && electron ."
+        "start": "electron .",
+        "dev": "rm -rf build && webpack --mode development --watch",
+        "prod": "rm -rf build && webpack --mode production && node generatePackage.js && npm run pack",
+        "pack": "cd build && electron-builder"
     },
     "resolutions": {
         "minimist": "^1.2.5"
@@ -15,17 +20,26 @@
         "type": "git",
         "url": "git+https://github.com/Hive7/Password-Manager.git"
     },
-    "author": "Oliver Cole",
-    "license": "MIT",
     "bugs": {
         "url": "https://github.com/Hive7/Password-Manager/issues"
     },
     "homepage": "https://github.com/Hive7/Password-Manager#readme",
     "devDependencies": {
+        "@babel/core": "^7.9.0",
+        "@babel/preset-env": "^7.9.0",
+        "@babel/preset-typescript": "^7.9.0",
+        "babel-loader": "^8.1.0",
+        "ejs-compiled-loader": "^2.2.0",
+        "ejs-loader": "^0.3.6",
         "electron": "^8.2.0",
+        "electron-builder": "^22.4.1",
         "eslint": "^6.8.0",
         "eslint-config-google": "^0.14.0",
+        "html-webpack-plugin": "^4.0.4",
         "spectron": "^10.0.1",
-        "typescript": "^3.8.3"
-    }
+        "typescript": "^3.8.3",
+        "webpack": "^4.42.1",
+        "webpack-cli": "^3.3.11"
+    },
+    "dependencies": {}
 }
