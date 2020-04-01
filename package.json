@@ -1,0 +1,31 @@
+{
+    "name": "password-manager",
+    "version": "1.0.0",
+    "description": "A simple password managment tool written for electron",
+    "main": "build/main.js",
+    "scripts": {
+        "test": "spectron",
+        "preinstall": "npx npm-force-resolutions",
+        "start": "tsc && cp -r src/html build && electron ."
+    },
+    "resolutions": {
+        "minimist": "^1.2.5"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Hive7/Password-Manager.git"
+    },
+    "author": "Oliver Cole",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/Hive7/Password-Manager/issues"
+    },
+    "homepage": "https://github.com/Hive7/Password-Manager#readme",
+    "devDependencies": {
+        "electron": "^8.2.0",
+        "eslint": "^6.8.0",
+        "eslint-config-google": "^0.14.0",
+        "spectron": "^10.0.1",
+        "typescript": "^3.8.3"
+    }
+}
