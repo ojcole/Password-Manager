@@ -55,4 +55,4 @@ previousPackage['scripts'] = {
 
 fs.writeFileSync('build/package.json', JSON.stringify(previousPackage));
 
-console.log(previousPackage);
+// console.log(previousPackage);

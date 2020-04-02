@@ -8,7 +8,7 @@
     "scripts": {
         "test": "spectron",
         "preinstall": "npx npm-force-resolutions",
-        "start": "electron .",
+        "start": "node generatePackage.js && cd build && electron .",
         "dev": "rm -rf build && webpack --mode development --watch",
         "prod": "rm -rf build && webpack --mode production && node generatePackage.js && npm run pack",
         "pack": "cd build && electron-builder"

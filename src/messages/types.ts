@@ -1,0 +1,4 @@
+export const STORAGE_MSG_SEND = 'STORAGE_MSG_SEND';
+export const STORAGE_MSG_REPLY = 'STORAGE_MSG_REPLY';
+
+export type MsgChannel = 'STORAGE_MSG_SEND' | 'STORAGE_MSG_REPLY';
