@@ -60,7 +60,9 @@ const Main: React.FunctionComponent = () => {
     });
 
   useEffect(() => {
-    setContent(generatePassword(website, master));
+    generatePassword(website, master).then((content) => {
+      setContent(content);
+    });
   }, [website, master]);
 
   return (

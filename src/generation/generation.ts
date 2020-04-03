@@ -1,14 +1,21 @@
-import { md } from 'node-forge';
-
-const hasher = md.sha512.create();
 const symbolStart = 32;
 const symbolEnd = 126;
 const symbolInterval = symbolEnd - symbolStart;
 
-export const generatePassword = (website: string, master: string): string => {
-  hasher.update(master + website.toUpperCase() + master);
+export const generatePassword = (
+  website: string,
+  master: string
+): PromiseLike<string> => {
+  const stringToHash = master + website.toUpperCase() + master;
 
-  return hexToPassword(hasher.digest().toHex());
+  return crypto.subtle
+    .digest('SHA-512', new TextEncoder().encode(stringToHash))
+    .then((buf) => {
+      return Array.prototype.map
+        .call(new Uint8Array(buf), (x) => ('00' + x.toString(16)).slice(-2))
+        .join('');
+    })
+    .then((hashed) => hexToPassword(hashed));
 };
 
 export const hexToPassword = (hexString: string): string => {

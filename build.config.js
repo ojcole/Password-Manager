@@ -94,6 +94,7 @@ const WebpackConfigBuilder = (config) => {
       filename: 'frontend.js',
     }),
     plugins: [
+      ...baseConfig.plugins,
       new HTMLWebpackPlugin({
         template: path.resolve(htmlPath, 'index.html'),
         loader: 'ejs-compiled-loader',
@@ -103,7 +104,7 @@ const WebpackConfigBuilder = (config) => {
     ],
   });
 
-  return [electronTarget, frontendTarget];
+  return [frontendTarget, electronTarget];
 };
 
 module.exports = WebpackConfigBuilder;

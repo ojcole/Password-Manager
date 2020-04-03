@@ -53,11 +53,11 @@
         "spectron": "^10.0.1",
         "typescript": "^3.8.3",
         "webpack": "^4.42.1",
+        "webpack-bundle-analyzer": "^3.6.1",
         "webpack-cli": "^3.3.11"
     },
     "dependencies": {
         "@material-ui/core": "^4.9.8",
-        "node-forge": "^0.9.1",
         "react": "^16.13.1",
         "react-dom": "^16.13.1"
     }
