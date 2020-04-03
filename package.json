@@ -5,13 +5,23 @@
     "main": "build/main.js",
     "author": "Oliver Cole <oliver@cole2.com>",
     "license": "MIT",
+    "sideEffects": [
+        "**/*.css"
+    ],
     "scripts": {
         "test": "spectron",
         "preinstall": "npx npm-force-resolutions",
         "start": "node generatePackage.js && cd build && electron .",
-        "dev": "rm -rf build && webpack --mode development --watch",
-        "prod": "rm -rf build && webpack --mode production && node generatePackage.js && npm run pack",
+        "dev": "rm -rf build && webpack --config=dev.webpack.config.js",
+        "build": "rm -rf build && webpack --config=prod.webpack.config.js",
+        "prod": "npm run build && node generatePackage.js && npm run pack",
         "pack": "cd build && electron-builder"
+    },
+    "importSort": {
+        "js, .jsx, .ts, .tsx": {
+            "style": "module",
+            "parser": "typescript"
+        }
     },
     "resolutions": {
         "minimist": "^1.2.5"
@@ -27,7 +37,11 @@
     "devDependencies": {
         "@babel/core": "^7.9.0",
         "@babel/preset-env": "^7.9.0",
+        "@babel/preset-react": "^7.9.4",
         "@babel/preset-typescript": "^7.9.0",
+        "@types/node-forge": "^0.9.3",
+        "@types/react": "^16.9.32",
+        "@types/react-dom": "^16.9.6",
         "babel-loader": "^8.1.0",
         "ejs-compiled-loader": "^2.2.0",
         "ejs-loader": "^0.3.6",
@@ -41,5 +55,10 @@
         "webpack": "^4.42.1",
         "webpack-cli": "^3.3.11"
     },
-    "dependencies": {}
+    "dependencies": {
+        "@material-ui/core": "^4.9.8",
+        "node-forge": "^0.9.1",
+        "react": "^16.13.1",
+        "react-dom": "^16.13.1"
+    }
 }

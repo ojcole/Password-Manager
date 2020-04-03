@@ -1,18 +1,30 @@
 {
     "compileOnSave": true,
     "compilerOptions": {
-        "outDir": "./build",
-        "target": "es5",
+        "target": "esnext",
         "module": "commonjs",
         "moduleResolution": "node",
-        "sourceMap": true,
-        "emitDecoratorMetadata": true,
         "experimentalDecorators": true,
-        "removeComments": false,
-        "noImplicitAny": true,
+        "jsx": "react",
         "strict": true,
-        "suppressImplicitAnyIndexErrors": true,
-        "resolveJsonModule": true
+        "noImplicitAny": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "strictBindCallApply": true,
+        "strictPropertyInitialization": true,
+        "noImplicitThis": true,
+        "alwaysStrict": true,
+        "resolveJsonModule": true,
+        "forceConsistentCasingInFileNames": true,
+        "esModuleInterop": true,
+        "allowSyntheticDefaultImports": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "noImplicitReturns": true,
+        "noFallthroughCasesInSwitch": true,
+        "lib": ["es6", "dom"]
+        
     },
+    "include": ["src"],
     "exclude": ["node_modules"]
 }
