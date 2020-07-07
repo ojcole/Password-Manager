@@ -45,7 +45,7 @@
         "babel-loader": "^8.1.0",
         "ejs-compiled-loader": "^2.2.0",
         "ejs-loader": "^0.3.6",
-        "electron": "^8.2.0",
+        "electron": "^8.2.4",
         "electron-builder": "^22.4.1",
         "eslint": "^6.8.0",
         "eslint-config-google": "^0.14.0",
