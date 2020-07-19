@@ -31,7 +31,3 @@ export interface PasswordDisplayProps {
 export interface FilterSearchProps {
   setText: (val: string) => void;
 }
-
-export interface MainProps {
-  sites: SiteTableRow[];
-}

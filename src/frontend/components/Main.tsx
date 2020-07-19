@@ -4,7 +4,7 @@ import {
   combinePasswords,
 } from '../../generation/generation';
 import SiteTable from './SiteTable';
-import { SiteTableRow, MainProps } from './types';
+import { SiteTableRow } from './types';
 import PasswordInputs from './PasswordInputs';
 import Breaker from './Breaker';
 import escapeStringRegexp from 'escape-string-regexp';
