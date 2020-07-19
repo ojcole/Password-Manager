@@ -1,10 +1,11 @@
-const symbolStart = 32;
-const symbolEnd = 126;
-const symbolInterval = symbolEnd - symbolStart;
+export const combinePasswords = (...passwords: string[]) => {
+  return passwords.join('');
+};
 
 export const generatePassword = (
   website: string,
-  master: string
+  master: string,
+  symbols: string
 ): PromiseLike<string> => {
   const stringToHash = master + website.toUpperCase() + master;
 
@@ -15,17 +16,17 @@ export const generatePassword = (
         .call(new Uint8Array(buf), (x) => ('00' + x.toString(16)).slice(-2))
         .join('');
     })
-    .then((hashed) => hexToPassword(hashed));
+    .then((hashed) => hexToPassword(hashed, symbols));
 };
 
-export const hexToPassword = (hexString: string): string => {
+export const hexToPassword = (hexString: string, symbols: string): string => {
   const values = hexString
     .match(/.{4}/g)
-    ?.map((hex) => Number.parseInt(hex, 16) % symbolInterval);
+    ?.map((hex) => Number.parseInt(hex, 16) % symbols.length);
 
   if (values === undefined) {
     return '';
   }
 
-  return values.map((val) => String.fromCharCode(val + symbolStart)).join('');
+  return values.map((val) => symbols[val]).join('');
 };

@@ -2,6 +2,9 @@ import { entryHTML } from './config.json';
 import { app, BrowserWindow } from 'electron';
 import resolveHTML from './resolveHTML';
 import handler from './messages/handler';
+import { setupStore } from './store';
+
+setupStore();
 
 const createWindow = () => {
   const window = new BrowserWindow({

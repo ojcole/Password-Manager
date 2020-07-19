@@ -1,7 +1,8 @@
-import { IpcMainEvent } from 'electron';
-import { STORAGE_MSG_REPLY } from '../../messages/types';
+import { IpcMainInvokeEvent } from 'electron';
+import { loadSites } from '../store';
 
-export default (event: IpcMainEvent, arg: any) => {
-  console.log(arg);
-  event.reply(STORAGE_MSG_REPLY, 'Hi');
+export default (__: IpcMainInvokeEvent, _: any) => {
+  const sites = loadSites();
+
+  return sites;
 };

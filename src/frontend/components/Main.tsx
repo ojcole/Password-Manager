@@ -1,131 +1,69 @@
-import React, { useState, useEffect, ChangeEvent } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
-  Grid,
-  TextField,
-  Tooltip,
-  makeStyles,
-  Theme,
-  createStyles,
-  Typography,
-  Button,
-} from '@material-ui/core';
-import { generatePassword } from '../../generation/generation';
-import { copyToClipBoard } from '../../helpers/clipboard';
+  generatePassword,
+  combinePasswords,
+} from '../../generation/generation';
+import SiteTable from './SiteTable';
+import { SiteTableRow, MainProps } from './types';
+import PasswordInputs from './PasswordInputs';
+import Breaker from './Breaker';
+import escapeStringRegexp from 'escape-string-regexp';
+import PasswordDisplay from './PasswordDisplay';
+import FilterSearch from './FilterSearch';
+import { symbols } from '../../generation/constants';
+import { STORAGE_MSG_GET_SEND } from '../../messages/types';
+import { Site } from '../../electron/types';
+const { ipcRenderer } = window.require('electron');
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    grid: {
-      height: '100%',
-      flexDirection: 'column',
-    },
-    heading: {
-      flex: '0 1 auto',
-    },
-    content: {
-      flex: '1 1 auto',
-    },
-    password: {
-      wordBreak: 'break-all',
-      fontFamily: 'monospace',
-    },
-    copy: {
-      marginTop: theme.spacing(1),
-      marginLeft: 'auto',
-      marginRight: 'auto',
-      display: 'flex',
-    },
-  })
-);
+const filterSites = (
+  sites: SiteTableRow[],
+  pattern: string
+): SiteTableRow[] => {
+  const regex = new RegExp(`.*${escapeStringRegexp(pattern)}.*`);
+
+  return sites.filter((elem) => regex.test(elem.site));
+};
 
 const Main: React.FunctionComponent = () => {
-  const classes = useStyles();
-  const [website, setWebsite] = useState('');
-  const [master, setMaster] = useState('');
+  const [selected, setSelected] = useState(-1);
+  const [pass1, setPass1] = useState('');
+  const [pass2, setPass2] = useState('');
   const [content, setContent] = useState('');
-  const [copied, setCopied] = useState(false);
-
-  const updateField = (handler: typeof setWebsite | typeof setMaster) => (
-    event: ChangeEvent<HTMLInputElement>
-  ) => {
-    handler(event.target.value);
-  };
-
-  let closeTimer: number;
-
-  const copy = () =>
-    copyToClipBoard(content).then(() => {
-      setCopied(true);
-      window.clearTimeout(closeTimer);
-      closeTimer = window.setTimeout(() => setCopied(false), 2000);
-    });
+  const [filterText, setFilterText] = useState('');
+  const [sites, setSites] = useState<SiteTableRow[]>([]);
 
   useEffect(() => {
-    generatePassword(website, master).then((content) => {
+    ipcRenderer.invoke(STORAGE_MSG_GET_SEND).then((res: Site[]) => {
+      setSites(res.map((elem, i: number) => Object.assign(elem, { id: i })));
+    });
+  }, []);
+
+  useEffect(() => {
+    const website = sites.find((elem) => elem.id == selected) || {
+      site: '',
+      id: -1,
+    };
+    const master = combinePasswords(pass1, pass2);
+    generatePassword(website.site, master, symbols).then((content) => {
       setContent(content);
     });
-  }, [website, master]);
+  }, [pass1, pass2, selected]);
+
+  const filteredSites = filterSites(sites, filterText);
 
   return (
-    <>
-      <Grid container className={classes.grid}>
-        <Grid container spacing={4} className={classes.heading}>
-          <Grid item xs={4}>
-            <Typography variant="h1">Website</Typography>
-          </Grid>
-          <Grid item xs={4}>
-            <Typography variant="h1">Master Password</Typography>
-          </Grid>
-          <Grid item xs={4}>
-            <Typography variant="h1">Your Password</Typography>
-          </Grid>
-        </Grid>
-        <Grid
-          container
-          spacing={4}
-          justify="center"
-          alignItems="center"
-          className={classes.content}
-        >
-          <Grid item xs={4}>
-            <Tooltip title="Not Case Sensitive" arrow placement="top">
-              <TextField
-                placeholder="Website Name"
-                variant="outlined"
-                fullWidth
-                value={website}
-                onChange={updateField(setWebsite)}
-              />
-            </Tooltip>
-          </Grid>
-          <Grid item xs={4}>
-            <Tooltip title="Case Sensitive" arrow placement="top">
-              <TextField
-                placeholder="Master Password"
-                type="password"
-                variant="outlined"
-                fullWidth
-                value={master}
-                onChange={updateField(setMaster)}
-              />
-            </Tooltip>
-          </Grid>
-          <Grid item xs={4}>
-            <Typography variant="h4" className={classes.password}>
-              {content}
-            </Typography>
-            <Tooltip title="Copied!" arrow open={copied}>
-              <Button
-                variant="contained"
-                className={classes.copy}
-                onClick={copy}
-              >
-                Copy to Clipboard
-              </Button>
-            </Tooltip>
-          </Grid>
-        </Grid>
-      </Grid>
-    </>
+    <div>
+      <PasswordInputs passwordSetters={[setPass1, setPass2]} />
+      <Breaker />
+      <FilterSearch setText={setFilterText} />
+      <SiteTable
+        rows={filteredSites}
+        selected={selected}
+        chooseSelected={setSelected}
+      ></SiteTable>
+      <Breaker />
+      <PasswordDisplay content={content} />
+    </div>
   );
 };
 

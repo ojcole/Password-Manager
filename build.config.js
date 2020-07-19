@@ -19,6 +19,7 @@ const WebpackConfigBuilder = (config) => {
         main: path.resolve(electronPath, 'main.ts'),
         frontend: path.resolve(frontendPath, 'main.ts'),
       },
+      plugins: [],
       module: {
         rules: [
           {
