@@ -35,6 +35,7 @@
     },
     "homepage": "https://github.com/Hive7/Password-Manager#readme",
     "devDependencies": {
+        "minimist": "^1.2.5",
         "@babel/core": "^7.9.0",
         "@babel/preset-env": "^7.9.0",
         "@babel/preset-react": "^7.9.4",
