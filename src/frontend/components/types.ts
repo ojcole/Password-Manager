@@ -31,3 +31,10 @@ export interface PasswordDisplayProps {
 export interface FilterSearchProps {
   setText: (val: string) => void;
 }
+
+export interface FlexAttributesI {
+  grow?: boolean | number;
+  shrink?: boolean | number;
+  basis?: boolean | 'auto' | number;
+  minHeight?: number;
+}

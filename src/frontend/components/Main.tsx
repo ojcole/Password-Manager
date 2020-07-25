@@ -13,6 +13,8 @@ import FilterSearch from './FilterSearch';
 import { symbols } from '../../generation/constants';
 import { STORAGE_MSG_GET_SEND } from '../../messages/types';
 import { Site } from '../../electron/types';
+import GridItemFlex from './GridItemFlex';
+import MainGrid from './MainGrid';
 const { ipcRenderer } = window.require('electron');
 
 const filterSites = (
@@ -52,18 +54,26 @@ const Main: React.FunctionComponent = () => {
   const filteredSites = filterSites(sites, filterText);
 
   return (
-    <div>
-      <PasswordInputs passwordSetters={[setPass1, setPass2]} />
-      <Breaker />
-      <FilterSearch setText={setFilterText} />
-      <SiteTable
-        rows={filteredSites}
-        selected={selected}
-        chooseSelected={setSelected}
-      ></SiteTable>
-      <Breaker />
-      <PasswordDisplay content={content} />
-    </div>
+    <MainGrid>
+      <GridItemFlex basis>
+        <PasswordInputs passwordSetters={[setPass1, setPass2]} />
+        <Breaker />
+      </GridItemFlex>
+      <GridItemFlex basis>
+        <FilterSearch setText={setFilterText} />
+      </GridItemFlex>
+      <GridItemFlex grow shrink minHeight={200} basis={'auto'}>
+        <SiteTable
+          rows={filteredSites}
+          selected={selected}
+          chooseSelected={setSelected}
+        ></SiteTable>
+      </GridItemFlex>
+      <GridItemFlex basis>
+        <Breaker />
+        <PasswordDisplay content={content} />
+      </GridItemFlex>
+    </MainGrid>
   );
 };
 

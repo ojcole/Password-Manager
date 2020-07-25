@@ -1,23 +1,25 @@
 const path = require('path');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
-const srcPath = path.resolve(__dirname, 'src');
-const buildPath = path.resolve(__dirname, 'build');
-const htmlPath = path.resolve(srcPath, 'html');
-const electronPath = path.resolve(srcPath, 'electron');
-const frontendPath = path.resolve(srcPath, 'frontend');
+const {
+  srcPath,
+  buildPath,
+  htmlPath,
+  electronPath,
+  frontendPath,
+} = require('./paths');
 const outputConfig = {
   path: buildPath,
   publicPath: buildPath,
 };
 
-const WebpackConfigBuilder = (config) => {
+const WebpackConfigBuilder = (config, extras) => {
   const baseConfig = Object.assign(
     {},
     {
       mode: 'development',
       entry: {
-        main: path.resolve(electronPath, 'main.ts'),
-        frontend: path.resolve(frontendPath, 'main.ts'),
+        main: extras.main,
+        frontend: path.resolve(frontendPath, 'main.tsx'),
       },
       plugins: [],
       module: {
@@ -81,7 +83,7 @@ const WebpackConfigBuilder = (config) => {
   );
 
   const electronTarget = Object.assign({}, baseConfig, {
-    entry: path.resolve(electronPath, 'main.ts'),
+    entry: path.resolve(electronPath, extras.main),
     target: 'electron-main',
     output: Object.assign({}, outputConfig, {
       filename: 'main.js',

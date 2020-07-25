@@ -15,6 +15,7 @@ const useStyles = makeStyles((theme: Theme) =>
     password: {
       wordBreak: 'break-all',
       fontFamily: 'monospace',
+      textAlign: 'center',
     },
     copy: {
       marginTop: theme.spacing(1),
