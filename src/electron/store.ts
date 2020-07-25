@@ -2,18 +2,18 @@ import Store from 'electron-store';
 import { Site } from './types';
 
 const defaultSites: Site[] = [
-  {
-    site: 'facebook.com',
-  },
-  {
-    site: 'google.com',
-  },
-  {
-    site: 'amazon.com',
-  },
-  {
-    site: 'ebay.com',
-  },
+  // {
+  //   site: 'facebook.com',
+  // },
+  // {
+  //   site: 'google.com',
+  // },
+  // {
+  //   site: 'amazon.com',
+  // },
+  // {
+  //   site: 'ebay.com',
+  // },
 ];
 
 const store = new Store();
@@ -29,3 +29,4 @@ export const setupStore = () => {
 };
 
 export const loadSites = () => store.get<string>('sites');
+export const saveSites = (sites: Site[]) => store.set<string>('sites', sites);

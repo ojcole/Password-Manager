@@ -15,6 +15,7 @@ const useStyles = makeStyles((_: Theme) =>
         flexGrow: props.grow as number,
         flexShrink: props.shrink as number,
         width: '100%',
+        flexBasis: props.basis as number,
       };
 
       if (props.minHeight !== undefined) {
@@ -46,14 +47,14 @@ const GridItemFlex: React.FunctionComponent<GridProps & FlexAttributesI> = ({
     }
   }
 
+  console.log(basis);
+
   const classes = useStyles({
     grow: Number(grow) || 0,
     shrink: Number(shrink) || 0,
     basis,
     minHeight,
   });
-
-  console.log(grow, shrink);
 
   const newProps = Object.assign({}, props, {
     item: true,

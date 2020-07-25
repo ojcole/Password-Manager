@@ -11,11 +11,9 @@ import escapeStringRegexp from 'escape-string-regexp';
 import PasswordDisplay from './PasswordDisplay';
 import FilterSearch from './FilterSearch';
 import { symbols } from '../../generation/constants';
-import { STORAGE_MSG_GET_SEND } from '../../messages/types';
-import { Site } from '../../electron/types';
 import GridItemFlex from './GridItemFlex';
 import MainGrid from './MainGrid';
-const { ipcRenderer } = window.require('electron');
+import { sendLoadSites, sendSaveSites } from '../messages/senders';
 
 const filterSites = (
   sites: SiteTableRow[],
@@ -33,15 +31,23 @@ const Main: React.FunctionComponent = () => {
   const [content, setContent] = useState('');
   const [filterText, setFilterText] = useState('');
   const [sites, setSites] = useState<SiteTableRow[]>([]);
+  const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
-    ipcRenderer.invoke(STORAGE_MSG_GET_SEND).then((res: Site[]) => {
-      setSites(res.map((elem, i: number) => Object.assign(elem, { id: i })));
+    sendLoadSites((sites) => {
+      setSites(sites);
+      setLoaded(true);
     });
   }, []);
 
   useEffect(() => {
-    const website = sites.find((elem) => elem.id == selected) || {
+    if (loaded) {
+      sendSaveSites(sites);
+    }
+  }, [sites]);
+
+  useEffect(() => {
+    const website = sites.find((elem) => elem.id === selected) || {
       site: '',
       id: -1,
     };
@@ -62,7 +68,7 @@ const Main: React.FunctionComponent = () => {
       <GridItemFlex basis>
         <FilterSearch setText={setFilterText} />
       </GridItemFlex>
-      <GridItemFlex grow shrink minHeight={200} basis={'auto'}>
+      <GridItemFlex grow shrink minHeight={200} basis>
         <SiteTable
           rows={filteredSites}
           selected={selected}

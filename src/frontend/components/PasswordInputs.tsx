@@ -29,7 +29,7 @@ const PasswordInputs: React.FunctionComponent<PasswordInputsProps> = ({
   return (
     <Grid container spacing={2} className={grid}>
       {passwordSetters.map((setter, i) => (
-        <Grid item xs={6} key={i}>
+        <Grid item sm={6} xs={12} key={i}>
           <PassInput
             placeholder={`Password ${i + 1}`}
             onChange={(e: ChangeEvent<HTMLInputElement>) =>
