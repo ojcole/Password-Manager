@@ -1,6 +1,6 @@
 import React from 'react';
 import { FilterSearchProps } from './types';
-import { InputAdornment, TextField } from '@material-ui/core';
+import { InputAdornment } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 import LongInput from './LongInput';
 
