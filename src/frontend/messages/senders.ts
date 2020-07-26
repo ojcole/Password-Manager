@@ -5,6 +5,7 @@ import {
   STORAGE_MSG_PUT_SEND,
   STORAGE_SETTINGS_GET_SEND,
   STORAGE_SETTINGS_PUT_SEND,
+  CLIPBOARD_CLEAR_SEND,
 } from '../../messages/types';
 const { ipcRenderer } = window.require('electron');
 
@@ -27,3 +28,7 @@ export const sendLoadSettings = (setter: (settings: Settings) => void) => {
 export const sendSaveSettings = (settings: Settings) => {
   ipcRenderer.send(STORAGE_SETTINGS_PUT_SEND, settings);
 };
+
+export const sendClearClipboard = () => {
+  ipcRenderer.send(CLIPBOARD_CLEAR_SEND);
+}

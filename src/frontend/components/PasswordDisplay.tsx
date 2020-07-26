@@ -7,7 +7,7 @@ import {
   makeStyles,
   Theme,
 } from '@material-ui/core';
-import { copyToClipBoard } from '../../helpers/clipboard';
+import { copyToClipBoard, clearClipboard } from '../helpers/clipboard';
 import { PasswordDisplayProps } from './types';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -35,15 +35,22 @@ const PasswordDisplay: React.FunctionComponent<PasswordDisplayProps> = ({
   const [copied, setCopied] = useState(false);
 
   let closeTimer: number;
+  let resetClipboardTimer: number;
 
   const copy = () =>
     copyToClipBoard(content).then(() => {
       setCopied(true);
       window.clearTimeout(closeTimer);
+      window.clearTimeout(resetClipboardTimer);
+
       closeTimer = window.setTimeout(() => {
         setCopied(false);
         passwordSetters.forEach((setter) => setter(''));
       }, 2000);
+
+      resetClipboardTimer = window.setTimeout(() => {
+        clearClipboard();
+      }, 15000);
     });
 
   return (

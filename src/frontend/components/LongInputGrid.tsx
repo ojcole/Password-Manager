@@ -1,7 +1,7 @@
 import React from 'react';
 import { LongInputGridProps } from './types';
 import { Grid, makeStyles, createStyles, Theme } from '@material-ui/core';
-import { createGridItemLength } from '../../helpers/typeVerification';
+import { createGridItemLength } from '../helpers/typeVerification';
 
 const useStyles = makeStyles((_: Theme) =>
   createStyles({
