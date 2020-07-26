@@ -1,19 +1,21 @@
 import React, { PropsWithChildren } from 'react';
 import { makeStyles, Theme, createStyles, Grid } from '@material-ui/core';
+import { MainGridProps } from './types';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    main: {
+    main: (props: MainGridProps) => ({
       minHeight: '100%',
-      paddingBottom: theme.spacing(2),
-    },
+      padding: theme.spacing(props.paddingSpacing || 0),
+    }),
   })
 );
 
-const MainGrid: React.FunctionComponent<PropsWithChildren<{}>> = ({
+const MainGrid: React.FunctionComponent<PropsWithChildren<MainGridProps>> = ({
   children,
+  ...props
 }) => {
-  const classes = useStyles();
+  const classes = useStyles(props);
 
   return (
     <Grid

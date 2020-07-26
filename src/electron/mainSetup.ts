@@ -7,6 +7,7 @@ const mainSetup = (transformer: (window: BrowserWindow) => void) => {
   setupStore();
   handler();
 
+  app.allowRendererProcessReuse = true;
   app.whenReady().then(() => {
     const window = createWindow();
 

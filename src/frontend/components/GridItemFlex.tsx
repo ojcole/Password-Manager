@@ -47,8 +47,6 @@ const GridItemFlex: React.FunctionComponent<GridProps & FlexAttributesI> = ({
     }
   }
 
-  console.log(basis);
-
   const classes = useStyles({
     grow: Number(grow) || 0,
     shrink: Number(shrink) || 0,

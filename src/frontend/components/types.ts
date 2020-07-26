@@ -1,9 +1,11 @@
 import { InputProps } from '@material-ui/core';
 import { Site } from '../../electron/types';
+import { AppSettings } from '../settings/types';
 
 interface SiteRow {
   selected: number;
   chooseSelected: (index: number) => void;
+  deleteRow: (index: number) => void;
 }
 
 export type SiteTableRow = Site & {
@@ -22,10 +24,12 @@ export interface PassInputProps {
 
 export interface PasswordInputsProps {
   passwordSetters: ((val: string) => void)[];
+  passwordValues: String[];
 }
 
 export interface PasswordDisplayProps {
   content: string;
+  passwordSetters: ((value: string) => void)[];
 }
 
 export interface FilterSearchProps {
@@ -38,3 +42,13 @@ export interface FlexAttributesI {
   basis?: boolean | 'auto' | number;
   minHeight?: number;
 }
+
+export interface MainGridProps {
+  paddingSpacing?: number;
+}
+
+export interface SettingsProps {
+  settings: AppSettings;
+}
+
+export type MainProps = SettingsProps & {};

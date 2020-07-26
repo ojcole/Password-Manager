@@ -23,6 +23,7 @@ const useStyles = makeStyles((_: Theme) =>
 
 const PasswordInputs: React.FunctionComponent<PasswordInputsProps> = ({
   passwordSetters,
+  passwordValues,
 }) => {
   const { grid } = useStyles();
 
@@ -35,6 +36,7 @@ const PasswordInputs: React.FunctionComponent<PasswordInputsProps> = ({
             onChange={(e: ChangeEvent<HTMLInputElement>) =>
               setter(e.target.value)
             }
+            value={passwordValues[i]}
           />
         </Grid>
       ))}

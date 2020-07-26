@@ -4,7 +4,7 @@ import {
   combinePasswords,
 } from '../../generation/generation';
 import SiteTable from './SiteTable';
-import { SiteTableRow } from './types';
+import { SiteTableRow, MainProps } from './types';
 import PasswordInputs from './PasswordInputs';
 import Breaker from './Breaker';
 import escapeStringRegexp from 'escape-string-regexp';
@@ -14,6 +14,7 @@ import { symbols } from '../../generation/constants';
 import GridItemFlex from './GridItemFlex';
 import MainGrid from './MainGrid';
 import { sendLoadSites, sendSaveSites } from '../messages/senders';
+import SettingsBar from './SettingsBar';
 
 const filterSites = (
   sites: SiteTableRow[],
@@ -24,7 +25,14 @@ const filterSites = (
   return sites.filter((elem) => regex.test(elem.site));
 };
 
-const Main: React.FunctionComponent = () => {
+const filterAndSet = (
+  sites: SiteTableRow[],
+  setSites: (sites: SiteTableRow[]) => void
+) => (id: number) => {
+  setSites(sites.filter((elem) => elem.id !== id));
+};
+
+const Main: React.FunctionComponent<MainProps> = ({ settings }) => {
   const [selected, setSelected] = useState(-1);
   const [pass1, setPass1] = useState('');
   const [pass2, setPass2] = useState('');
@@ -57,12 +65,20 @@ const Main: React.FunctionComponent = () => {
     });
   }, [pass1, pass2, selected]);
 
+  const passwordSetters = [setPass1, setPass2];
+  const passwordValues = [pass1, pass2];
   const filteredSites = filterSites(sites, filterText);
 
   return (
-    <MainGrid>
+    <MainGrid paddingSpacing={2}>
       <GridItemFlex basis>
-        <PasswordInputs passwordSetters={[setPass1, setPass2]} />
+        <SettingsBar settings={settings} />
+      </GridItemFlex>
+      <GridItemFlex basis>
+        <PasswordInputs
+          passwordSetters={passwordSetters}
+          passwordValues={passwordValues}
+        />
         <Breaker />
       </GridItemFlex>
       <GridItemFlex basis>
@@ -73,11 +89,12 @@ const Main: React.FunctionComponent = () => {
           rows={filteredSites}
           selected={selected}
           chooseSelected={setSelected}
+          deleteRow={filterAndSet(sites, setSites)}
         ></SiteTable>
       </GridItemFlex>
       <GridItemFlex basis>
         <Breaker />
-        <PasswordDisplay content={content} />
+        <PasswordDisplay content={content} passwordSetters={passwordSetters} />
       </GridItemFlex>
     </MainGrid>
   );

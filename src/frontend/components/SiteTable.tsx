@@ -5,12 +5,14 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import { SiteTableProps, SiteTableRowProps } from './types';
-import { Checkbox } from '@material-ui/core';
+import { Checkbox, IconButton } from '@material-ui/core';
+import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 
 const SiteRow: React.FunctionComponent<SiteTableRowProps> = ({
   selected,
   site,
   chooseSelected,
+  deleteRow,
   id,
 }) => {
   const isSelected = selected == id;
@@ -30,12 +32,17 @@ const SiteRow: React.FunctionComponent<SiteTableRowProps> = ({
         ></Checkbox>
       </TableCell>
       <TableCell>{site}</TableCell>
+      <TableCell padding="checkbox">
+        <IconButton onClick={() => deleteRow(id)}>
+          <DeleteOutlineIcon color="error" />
+        </IconButton>
+      </TableCell>
     </TableRow>
   );
 };
 
 const SiteTable: React.FunctionComponent<SiteTableProps> = (props) => {
-  const { rows, selected, chooseSelected } = props;
+  const { rows, selected, chooseSelected, deleteRow } = props;
 
   return (
     <Table>
@@ -45,6 +52,7 @@ const SiteTable: React.FunctionComponent<SiteTableProps> = (props) => {
             <Checkbox disabled></Checkbox>
           </TableCell>
           <TableCell>Site</TableCell>
+          <TableCell padding="checkbox"></TableCell>
         </TableRow>
       </TableHead>
       <TableBody>
@@ -53,6 +61,7 @@ const SiteTable: React.FunctionComponent<SiteTableProps> = (props) => {
             key={row.id}
             selected={selected}
             chooseSelected={chooseSelected}
+            deleteRow={deleteRow}
             {...row}
           />
         ))}

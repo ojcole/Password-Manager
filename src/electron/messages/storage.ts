@@ -8,7 +8,6 @@ export const load = (__: IpcMainInvokeEvent, _: any) => {
   return sites;
 };
 export const save = (__: IpcMainInvokeEvent, sites: any[]) => {
-  console.log(sites);
   if (sites.every(isSite)) {
     saveSites(sites);
   }

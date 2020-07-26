@@ -16,6 +16,7 @@ const useStyles = makeStyles((theme: Theme) =>
       wordBreak: 'break-all',
       fontFamily: 'monospace',
       textAlign: 'center',
+      color: theme.palette.text.primary,
     },
     copy: {
       marginTop: theme.spacing(1),
@@ -28,6 +29,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const PasswordDisplay: React.FunctionComponent<PasswordDisplayProps> = ({
   content,
+  passwordSetters,
 }) => {
   const classes = useStyles();
   const [copied, setCopied] = useState(false);
@@ -38,12 +40,16 @@ const PasswordDisplay: React.FunctionComponent<PasswordDisplayProps> = ({
     copyToClipBoard(content).then(() => {
       setCopied(true);
       window.clearTimeout(closeTimer);
-      closeTimer = window.setTimeout(() => setCopied(false), 2000);
+      closeTimer = window.setTimeout(() => {
+        setCopied(false);
+        passwordSetters.forEach((setter) => setter(''));
+      }, 2000);
     });
+
   return (
     <>
       <Typography variant="h4" className={classes.password}>
-        {content}
+        {'*'.repeat(content.length)}
       </Typography>
       <Tooltip title="Copied!" arrow open={copied}>
         <Button variant="contained" className={classes.copy} onClick={copy}>

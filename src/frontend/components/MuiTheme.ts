@@ -1,6 +1,7 @@
 import { createMuiTheme } from '@material-ui/core';
+import merge from 'deepmerge';
 
-export default createMuiTheme({
+const baseTheme = {
   overrides: {
     MuiGrid: {
       container: {
@@ -8,5 +9,22 @@ export default createMuiTheme({
       },
     },
   },
+  palette: {
+    error: { main: '#cc0000' },
+  },
   spacing: 12,
-});
+};
+
+const buildTheme = (theme: object): object => {
+  return merge(baseTheme, theme);
+};
+
+export const lightTheme = createMuiTheme(buildTheme({}));
+
+export const darkTheme = createMuiTheme(
+  buildTheme({
+    palette: {
+      type: 'dark',
+    },
+  })
+);
