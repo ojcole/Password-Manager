@@ -1,4 +1,4 @@
-import { InputProps } from '@material-ui/core';
+import { InputProps, TextFieldProps } from '@material-ui/core';
 import { Site } from '../../electron/types';
 import { AppSettings } from '../settings/types';
 
@@ -52,3 +52,15 @@ export interface SettingsProps {
 }
 
 export type MainProps = SettingsProps & {};
+
+export type LongInputProps = TextFieldProps & {};
+
+export interface LongInputGridProps {
+  inputs: JSX.Element[];
+}
+
+export interface AddSitesProps {
+  addSite: (site: string) => void;
+}
+
+export type SitesToolsProps = FilterSearchProps & AddSitesProps;

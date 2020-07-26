@@ -2,13 +2,13 @@ import React from 'react';
 import { FilterSearchProps } from './types';
 import { InputAdornment, TextField } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
+import LongInput from './LongInput';
 
 const FilterSearch: React.FunctionComponent<FilterSearchProps> = ({
   setText,
 }) => {
   return (
-    <TextField
-      fullWidth
+    <LongInput
       placeholder={'Enter search string'}
       onChange={(e) => setText(e.target.value)}
       label={'Filter'}
@@ -19,7 +19,6 @@ const FilterSearch: React.FunctionComponent<FilterSearchProps> = ({
           </InputAdornment>
         ),
       }}
-      variant="outlined"
     />
   );
 };

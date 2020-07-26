@@ -1,5 +1,11 @@
 import Store from 'electron-store';
-import { Site } from './types';
+import {
+  Site,
+  Settings,
+  isSiteArray,
+  isSettings,
+  defaultSettings,
+} from './types';
 
 const defaultSites: Site[] = [
   // {
@@ -28,5 +34,20 @@ export const setupStore = () => {
   return store;
 };
 
-export const loadSites = () => store.get<string>('sites');
+function loadGeneric<T>(key: string, def: T, check: (obj: any) => obj is T): T {
+  const storedData = store.get<string>(key);
+  if (storedData !== undefined && check(storedData)) {
+    return storedData;
+  }
+
+  return def;
+}
+
+export const loadSites = () =>
+  loadGeneric<Site[]>('sites', defaultSites, isSiteArray);
 export const saveSites = (sites: Site[]) => store.set<string>('sites', sites);
+
+export const loadSettings = () =>
+  loadGeneric<Settings>('settings', defaultSettings, isSettings);
+export const saveSettings = (settings: Settings) =>
+  store.set<string>('settings', settings);

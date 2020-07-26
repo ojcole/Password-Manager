@@ -41,6 +41,16 @@ const SiteRow: React.FunctionComponent<SiteTableRowProps> = ({
   );
 };
 
+const EmptyRow: React.FunctionComponent = () => {
+  return (
+    <TableRow>
+      <TableCell></TableCell>
+      <TableCell>No Sites</TableCell>
+      <TableCell></TableCell>
+    </TableRow>
+  );
+};
+
 const SiteTable: React.FunctionComponent<SiteTableProps> = (props) => {
   const { rows, selected, chooseSelected, deleteRow } = props;
 
@@ -56,15 +66,19 @@ const SiteTable: React.FunctionComponent<SiteTableProps> = (props) => {
         </TableRow>
       </TableHead>
       <TableBody>
-        {rows.map((row) => (
-          <SiteRow
-            key={row.id}
-            selected={selected}
-            chooseSelected={chooseSelected}
-            deleteRow={deleteRow}
-            {...row}
-          />
-        ))}
+        {rows.length === 0 ? (
+          <EmptyRow />
+        ) : (
+          rows.map((row) => (
+            <SiteRow
+              key={row.id}
+              selected={selected}
+              chooseSelected={chooseSelected}
+              deleteRow={deleteRow}
+              {...row}
+            />
+          ))
+        )}
       </TableBody>
     </Table>
   );

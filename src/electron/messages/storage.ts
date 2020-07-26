@@ -1,13 +1,13 @@
-import { IpcMainInvokeEvent } from 'electron';
+import { IpcMainInvokeEvent, IpcMainEvent } from 'electron';
 import { loadSites, saveSites } from '../store';
 import { isSite } from '../types';
 
-export const load = (__: IpcMainInvokeEvent, _: any) => {
+export const loadSitesHandle = (__: IpcMainInvokeEvent, _: any) => {
   const sites = loadSites();
 
   return sites;
 };
-export const save = (__: IpcMainInvokeEvent, sites: any[]) => {
+export const saveSitesHandle = (__: IpcMainEvent, sites: any[]) => {
   if (sites.every(isSite)) {
     saveSites(sites);
   }

@@ -9,12 +9,12 @@ import PasswordInputs from './PasswordInputs';
 import Breaker from './Breaker';
 import escapeStringRegexp from 'escape-string-regexp';
 import PasswordDisplay from './PasswordDisplay';
-import FilterSearch from './FilterSearch';
 import { symbols } from '../../generation/constants';
 import GridItemFlex from './GridItemFlex';
 import MainGrid from './MainGrid';
 import { sendLoadSites, sendSaveSites } from '../messages/senders';
 import SettingsBar from './SettingsBar';
+import SitesTools from './SitesTools';
 
 const filterSites = (
   sites: SiteTableRow[],
@@ -40,6 +40,17 @@ const Main: React.FunctionComponent<MainProps> = ({ settings }) => {
   const [filterText, setFilterText] = useState('');
   const [sites, setSites] = useState<SiteTableRow[]>([]);
   const [loaded, setLoaded] = useState(false);
+
+  const addSite = (site: string) => {
+    setSites((sites) => {
+      const newRow: SiteTableRow = {
+        site,
+        id: sites[sites.length - 1].id + 1,
+      };
+
+      return [...sites, newRow];
+    });
+  };
 
   useEffect(() => {
     sendLoadSites((sites) => {
@@ -82,7 +93,7 @@ const Main: React.FunctionComponent<MainProps> = ({ settings }) => {
         <Breaker />
       </GridItemFlex>
       <GridItemFlex basis>
-        <FilterSearch setText={setFilterText} />
+        <SitesTools setText={setFilterText} addSite={addSite} />
       </GridItemFlex>
       <GridItemFlex grow shrink minHeight={200} basis>
         <SiteTable
