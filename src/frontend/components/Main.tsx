@@ -45,7 +45,7 @@ const Main: React.FunctionComponent<MainProps> = ({ settings }) => {
     setSites((sites) => {
       const newRow: SiteTableRow = {
         site,
-        id: sites[sites.length - 1].id + 1,
+        id: sites.reduce((prev, curr) => Math.max(prev, curr.id), 0) + 1,
       };
 
       return [...sites, newRow];
