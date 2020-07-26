@@ -6,21 +6,24 @@ import { Button } from '@material-ui/core';
 const AddSites: React.FunctionComponent<AddSitesProps> = ({ addSite }) => {
   const [value, setValue] = useState('');
 
+  const clickEvent = () => {
+    if (value !== '') {
+      addSite(value);
+      setValue('');
+    }
+  }
+
   return (
     <LongInput
       label={'New Site'}
       placeholder={'Enter new site name'}
       value={value}
+      onKeyPress={(event) => event.charCode === 13 && clickEvent() }
       InputProps={{
         endAdornment: (
           <Button
             variant="contained"
-            onClick={() => {
-              if (value !== '') {
-                addSite(value);
-                setValue('');
-              }
-            }}
+            onClick={clickEvent}
           >
             Add
           </Button>
