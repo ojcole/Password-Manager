@@ -47,7 +47,7 @@
         "ejs-compiled-loader": "^2.2.0",
         "ejs-loader": "^0.3.6",
         "electron": "^8.2.4",
-        "electron-builder": "^22.4.1",
+        "electron-builder": "^22.7.0",
         "electron-builder-squirrel-windows": "^22.8.0",
         "eslint": "^6.8.0",
         "eslint-config-google": "^0.14.0",
