@@ -25,11 +25,18 @@ const filterSites = (
   return sites.filter((elem) => regex.test(elem.site));
 };
 
-const filterAndSet = (
+const deleteSite = (
   sites: SiteTableRow[],
-  setSites: (sites: SiteTableRow[]) => void
+  setSites: (sites: SiteTableRow[]) => void,
+  siteSet: Map<string, number>
 ) => (id: number) => {
-  setSites(sites.filter((elem) => elem.id !== id));
+  setSites(sites.filter((elem) => {
+    if (elem.id === id) {
+      siteSet.delete(elem.site);
+    }
+
+    return elem.id !== id;
+  }));
 };
 
 const Main: React.FunctionComponent<MainProps> = ({ settings }) => {
@@ -38,15 +45,26 @@ const Main: React.FunctionComponent<MainProps> = ({ settings }) => {
   const [pass2, setPass2] = useState('');
   const [content, setContent] = useState('');
   const [filterText, setFilterText] = useState('');
-  const [sites, setSites] = useState<SiteTableRow[]>([]);
   const [loaded, setLoaded] = useState(false);
 
+  const [siteSet, setSiteSet] = useState<Map<string, number>>(new Map<string, number>());
+  const [sites, setSites] = useState<SiteTableRow[]>([]);
+
   const addSite = (site: string) => {
+    const num = siteSet.get(site);
+    if (num !== undefined) {
+      setSelected(num);
+      return;
+    }
+
     setSites((sites) => {
       const newRow: SiteTableRow = {
         site,
         id: sites.reduce((prev, curr) => Math.max(prev, curr.id), 0) + 1,
       };
+
+      setSiteSet(sites => new Map(sites).set(site, newRow.id));
+      setSelected(newRow.id);
 
       return [...sites, newRow];
     });
@@ -55,6 +73,17 @@ const Main: React.FunctionComponent<MainProps> = ({ settings }) => {
   useEffect(() => {
     sendLoadSites((sites) => {
       setSites(sites);
+
+      setSiteSet(siteMap => {
+        const newSiteSet = new Map(siteMap);
+
+        sites.forEach(({ site, id }) => {
+          newSiteSet.set(site, id);
+        });
+
+        return newSiteSet;
+      });
+
       setLoaded(true);
     });
   }, []);
@@ -100,7 +129,7 @@ const Main: React.FunctionComponent<MainProps> = ({ settings }) => {
           rows={filteredSites}
           selected={selected}
           chooseSelected={setSelected}
-          deleteRow={filterAndSet(sites, setSites)}
+          deleteRow={deleteSite(sites, setSites, siteSet)}
         ></SiteTable>
       </GridItemFlex>
       <GridItemFlex basis>

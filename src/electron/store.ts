@@ -7,20 +7,7 @@ import {
   defaultSettings,
 } from './types';
 
-const defaultSites: Site[] = [
-  // {
-  //   site: 'facebook.com',
-  // },
-  // {
-  //   site: 'google.com',
-  // },
-  // {
-  //   site: 'amazon.com',
-  // },
-  // {
-  //   site: 'ebay.com',
-  // },
-];
+const defaultSites: Site[] = [];
 
 const store = new Store();
 
