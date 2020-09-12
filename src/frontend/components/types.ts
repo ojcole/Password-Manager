@@ -34,6 +34,7 @@ export interface PasswordDisplayProps {
 
 export interface FilterSearchProps {
   setText: (val: string) => void;
+  enterPressed: () => void;
 }
 
 export interface FlexAttributesI {

@@ -15,6 +15,7 @@ import MainGrid from './MainGrid';
 import { sendLoadSites, sendSaveSites } from '../messages/senders';
 import SettingsBar from './SettingsBar';
 import SitesTools from './SitesTools';
+import { ContactSupportOutlined } from '@material-ui/icons';
 
 const filterSites = (
   sites: SiteTableRow[],
@@ -109,6 +110,12 @@ const Main: React.FunctionComponent<MainProps> = ({ settings }) => {
   const passwordValues = [pass1, pass2];
   const filteredSites = filterSites(sites, filterText);
 
+  const selectIfOne = () => {
+    if (filteredSites.length === 1) {
+      setSelected(filteredSites[0].id);
+    }
+  };
+
   return (
     <MainGrid paddingSpacing={2}>
       <GridItemFlex basis>
@@ -122,7 +129,7 @@ const Main: React.FunctionComponent<MainProps> = ({ settings }) => {
         <Breaker />
       </GridItemFlex>
       <GridItemFlex basis>
-        <SitesTools setText={setFilterText} addSite={addSite} />
+        <SitesTools setText={setFilterText} addSite={addSite} enterPressed={selectIfOne} />
       </GridItemFlex>
       <GridItemFlex grow shrink minHeight={200} basis>
         <SiteTable
