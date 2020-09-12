@@ -20,9 +20,9 @@ const filterSites = (
   sites: SiteTableRow[],
   pattern: string
 ): SiteTableRow[] => {
-  const regex = new RegExp(`.*${escapeStringRegexp(pattern)}.*`);
+  const regex = new RegExp(`.*${escapeStringRegexp(pattern).toLowerCase()}.*`);
 
-  return sites.filter((elem) => regex.test(elem.site));
+  return sites.filter((elem) => regex.test(elem.site.toLowerCase()));
 };
 
 const deleteSite = (
