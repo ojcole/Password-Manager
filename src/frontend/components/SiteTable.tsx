@@ -2,10 +2,16 @@ import React from 'react';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
-import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import { SiteTableProps, SiteTableRowProps } from './types';
-import { Checkbox, IconButton, Typography } from '@material-ui/core';
+import {
+  Checkbox,
+  IconButton,
+  Typography,
+  makeStyles,
+  createStyles,
+  Theme,
+} from '@material-ui/core';
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 
 const SiteRow: React.FunctionComponent<SiteTableRowProps> = ({
@@ -51,26 +57,41 @@ const EmptyRow: React.FunctionComponent = () => {
   );
 };
 
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    heading: {
+      width: '100%',
+      color: theme.palette.text.primary,
+      backgroundColor: theme.palette.grey[900],
+      paddingTop: theme.spacing(1),
+      paddingBottom: theme.spacing(1),
+      paddingLeft: theme.spacing(2),
+      paddingRight: theme.spacing(2),
+    },
+  })
+);
+
+const THeader: React.FunctionComponent = () => {
+  const classes = useStyles();
+
+  return (
+    <div className={classes.heading}>
+      <Typography variant="h6">Sites</Typography>
+    </div>
+  );
+};
+
 const SiteTable: React.FunctionComponent<SiteTableProps> = (props) => {
   const { rows, selected, chooseSelected, deleteRow } = props;
 
   return (
-    <Table>
-      <TableHead>
-        <TableRow>
-          <TableCell padding="checkbox">
-            <Checkbox disabled></Checkbox>
-          </TableCell>
-          <TableCell>
-            <Typography variant="h6">Sites</Typography>
-          </TableCell>
-          <TableCell padding="checkbox"></TableCell>
-        </TableRow>
-      </TableHead>
-      <TableBody>
-        {rows.length === 0 ? (
-          <EmptyRow />
-        ) : (
+    <>
+      <THeader />
+      <Table>
+        <TableBody>
+          {rows.length === 0 ? (
+            <EmptyRow />
+          ) : (
             rows.map((row) => (
               <SiteRow
                 key={row.id}
@@ -81,8 +102,9 @@ const SiteTable: React.FunctionComponent<SiteTableProps> = (props) => {
               />
             ))
           )}
-      </TableBody>
-    </Table>
+        </TableBody>
+      </Table>
+    </>
   );
 };
 
