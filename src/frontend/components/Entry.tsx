@@ -38,14 +38,14 @@ const Entry: React.FunctionComponent = () => {
   };
 
   return settings === null ? (
-    <div>Loading</div>
+    <div></div>
   ) : (
-    <ThemeProvider theme={settings.dark ? darkTheme : lightTheme}>
-      <Body>
-        <Main settings={appSettings} />
-      </Body>
-    </ThemeProvider>
-  );
+      <ThemeProvider theme={settings.dark ? darkTheme : lightTheme}>
+        <Body>
+          <Main settings={appSettings} />
+        </Body>
+      </ThemeProvider>
+    );
 };
 
 export default Entry;
