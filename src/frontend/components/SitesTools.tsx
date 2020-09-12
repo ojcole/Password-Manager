@@ -12,8 +12,8 @@ const SitesTools: React.FunctionComponent<SitesToolsProps> = ({
   return (
     <LongInputGrid
       inputs={[
-        <FilterSearch setText={setText} enterPressed={enterPressed} />,
         <AddSites addSite={addSite} />,
+        <FilterSearch setText={setText} enterPressed={enterPressed} />,
       ]}
     />
   );

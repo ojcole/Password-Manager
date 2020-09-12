@@ -15,7 +15,6 @@ import MainGrid from './MainGrid';
 import { sendLoadSites, sendSaveSites } from '../messages/senders';
 import SettingsBar from './SettingsBar';
 import SitesTools from './SitesTools';
-import { ContactSupportOutlined } from '@material-ui/icons';
 
 const filterSites = (
   sites: SiteTableRow[],

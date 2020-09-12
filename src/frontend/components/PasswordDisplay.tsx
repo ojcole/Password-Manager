@@ -33,9 +33,8 @@ const PasswordDisplay: React.FunctionComponent<PasswordDisplayProps> = ({
 }) => {
   const classes = useStyles();
   const [copied, setCopied] = useState(false);
-
-  let closeTimer: number;
-  let resetClipboardTimer: number;
+  const [closeTimer, setCloseTimer] = useState(0);
+  const [resetClipboardTimer, setResetClipboardTimer] = useState(0);
 
   const copy = () =>
     copyToClipBoard(content).then(() => {
@@ -43,14 +42,14 @@ const PasswordDisplay: React.FunctionComponent<PasswordDisplayProps> = ({
       window.clearTimeout(closeTimer);
       window.clearTimeout(resetClipboardTimer);
 
-      closeTimer = window.setTimeout(() => {
+      setCloseTimer(window.setTimeout(() => {
         setCopied(false);
         passwordSetters.forEach((setter) => setter(''));
-      }, 2000);
+      }, 2000));
 
-      resetClipboardTimer = window.setTimeout(() => {
+      setResetClipboardTimer(window.setTimeout(() => {
         clearClipboard();
-      }, 15000);
+      }, 5000));
     });
 
   return (
