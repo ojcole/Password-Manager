@@ -1,6 +1,6 @@
 {
     "name": "password-manager",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "description": "A simple password managment tool written for electron",
     "main": "build/main.js",
     "author": "Oliver Cole <oliver@ojcole.com>",

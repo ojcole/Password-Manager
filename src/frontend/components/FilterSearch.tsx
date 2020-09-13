@@ -8,7 +8,7 @@ const FilterSearch: React.FunctionComponent<FilterSearchProps> = ({
   setText,
   enterPressed,
 }) => {
-  const [value, setValue] = useState("");
+  const [value, setValue] = useState('');
 
   useEffect(() => {
     setText(value);
@@ -28,10 +28,7 @@ const FilterSearch: React.FunctionComponent<FilterSearchProps> = ({
           </InputAdornment>
         ),
         endAdornment: (
-          <Button
-            variant="contained"
-            onClick={() => setValue("")}
-          >
+          <Button variant="contained" onClick={() => setValue('')}>
             Clear
           </Button>
         ),

@@ -53,7 +53,9 @@ export interface SettingsProps {
   loadConfig: (config: Config) => void;
 }
 
-export type MainProps = SettingsProps & {};
+export type MainProps = {
+  settings: SettingsProps['settings'];
+};
 
 export type LongInputProps = TextFieldProps & {};
 

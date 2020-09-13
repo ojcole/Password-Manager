@@ -4,13 +4,7 @@ import {
   BrowserWindow,
   dialog,
 } from 'electron';
-import {
-  loadSettings,
-  saveSettings,
-  loadSites,
-  loadConfig,
-  saveSites,
-} from '../store';
+import { loadSettings, saveSettings, loadConfig, saveSites } from '../store';
 import { isSettings, Config, isConfig } from '../types';
 import stringify from 'json-stringify-safe';
 import { writeFileSync, readFileSync } from 'fs';
