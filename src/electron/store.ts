@@ -5,6 +5,7 @@ import {
   isSiteArray,
   isSettings,
   defaultSettings,
+  Config,
 } from './types';
 
 const defaultSites: Site[] = [];
@@ -38,3 +39,8 @@ export const loadSettings = () =>
   loadGeneric<Settings>('settings', defaultSettings, isSettings);
 export const saveSettings = (settings: Settings) =>
   store.set<string>('settings', settings);
+
+export const loadConfig = (): Config => ({
+  sites: loadSites(),
+  settings: loadSettings(),
+});

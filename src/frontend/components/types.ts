@@ -1,5 +1,5 @@
 import { InputProps, TextFieldProps } from '@material-ui/core';
-import { Site } from '../../electron/types';
+import { Site, Config } from '../../electron/types';
 import { AppSettings } from '../settings/types';
 
 interface SiteRow {
@@ -50,6 +50,7 @@ export interface MainGridProps {
 
 export interface SettingsProps {
   settings: AppSettings;
+  loadConfig: (config: Config) => void;
 }
 
 export type MainProps = SettingsProps & {};

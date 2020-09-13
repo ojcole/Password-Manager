@@ -61,7 +61,7 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     heading: {
       width: '100%',
-      color: theme.palette.text.primary,
+      color: theme.palette.common.white,
       backgroundColor: theme.palette.grey[900],
       paddingTop: theme.spacing(1),
       paddingBottom: theme.spacing(1),

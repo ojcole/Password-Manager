@@ -15,6 +15,8 @@ import MainGrid from './MainGrid';
 import { sendLoadSites, sendSaveSites } from '../messages/senders';
 import SettingsBar from './SettingsBar';
 import SitesTools from './SitesTools';
+import { Config } from '../../electron/types';
+import { sitesToRows } from '../helpers/sites';
 
 const filterSites = (
   sites: SiteTableRow[],
@@ -54,6 +56,22 @@ const Main: React.FunctionComponent<MainProps> = ({ settings }) => {
   );
   const [sites, setSites] = useState<SiteTableRow[]>([]);
 
+  const loadAllSites = (sites: SiteTableRow[]) => {
+    setSites(sites);
+
+    setSiteSet((siteMap) => {
+      const newSiteSet = new Map(siteMap);
+
+      sites.forEach(({ site, id }) => {
+        newSiteSet.set(site, id);
+      });
+
+      return newSiteSet;
+    });
+
+    setLoaded(true);
+  };
+
   const addSite = (site: string): boolean => {
     const num = siteSet.get(site);
     if (num !== undefined) {
@@ -77,21 +95,7 @@ const Main: React.FunctionComponent<MainProps> = ({ settings }) => {
   };
 
   useEffect(() => {
-    sendLoadSites((sites) => {
-      setSites(sites);
-
-      setSiteSet((siteMap) => {
-        const newSiteSet = new Map(siteMap);
-
-        sites.forEach(({ site, id }) => {
-          newSiteSet.set(site, id);
-        });
-
-        return newSiteSet;
-      });
-
-      setLoaded(true);
-    });
+    sendLoadSites(loadAllSites);
   }, []);
 
   useEffect(() => {
@@ -121,10 +125,14 @@ const Main: React.FunctionComponent<MainProps> = ({ settings }) => {
     }
   };
 
+  const loadConfig = (config: Config) => {
+    loadAllSites(sitesToRows(config.sites));
+  };
+
   return (
     <MainGrid paddingSpacing={2}>
       <GridItemFlex basis>
-        <SettingsBar settings={settings} />
+        <SettingsBar settings={settings} loadConfig={loadConfig} />
       </GridItemFlex>
       <GridItemFlex basis>
         <PasswordInputs

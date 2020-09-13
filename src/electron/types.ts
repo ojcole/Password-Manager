@@ -17,5 +17,23 @@ export interface Settings {
 export const defaultSettings: Settings = {
   dark: false,
 };
+
 export const isSettings = (obj: any): obj is Settings =>
   isObject(obj) && 'dark' in obj;
+
+export interface Config {
+  settings: Settings;
+  sites: Site[];
+}
+
+export const defaultConfig: Config = {
+  settings: defaultSettings,
+  sites: defaultSites,
+};
+
+export const isConfig = (obj: any): obj is Config =>
+  isObject(obj) &&
+  'settings' in obj &&
+  'sites' in obj &&
+  isSettings(obj['settings']) &&
+  isSiteArray(obj['sites']);

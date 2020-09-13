@@ -36,21 +36,23 @@ const AddSites: React.FunctionComponent<AddSitesProps> = ({ addSite }) => {
 
   return (
     <Tooltip title="Added!" open={showTooltip} arrow>
-      <LongInput
-        label={'New Site'}
-        placeholder={'Enter new site name'}
-        value={value}
-        onKeyPress={(event) => event.charCode === 13 && clickEvent()}
-        InputProps={{
-          endAdornment: (
-            <Button variant="contained" onClick={clickEvent}>
-              Add
-            </Button>
-          ),
-        }}
-        onChange={(e) => setValue(e.target.value)}
-        error={error}
-      />
+      <span>
+        <LongInput
+          label={'New Site'}
+          placeholder={'Enter new site name'}
+          value={value}
+          onKeyPress={(event) => event.charCode === 13 && clickEvent()}
+          InputProps={{
+            endAdornment: (
+              <Button variant="contained" onClick={clickEvent}>
+                Add
+              </Button>
+            ),
+          }}
+          onChange={(e) => setValue(e.target.value)}
+          error={error}
+        />
+      </span>
     </Tooltip>
   );
 };

@@ -1,9 +1,13 @@
 import React from 'react';
 import { IconButton, Grid } from '@material-ui/core';
-import { Brightness4 } from '@material-ui/icons';
+import { Brightness4, Publish, GetApp } from '@material-ui/icons';
 import { SettingsProps } from './types';
+import { importConfig, exportConfig } from '../messages/senders';
 
-const SettingsBar: React.FunctionComponent<SettingsProps> = ({ settings }) => {
+const SettingsBar: React.FunctionComponent<SettingsProps> = ({
+  settings,
+  loadConfig,
+}) => {
   const { toggleDark } = settings;
 
   return (
@@ -11,6 +15,16 @@ const SettingsBar: React.FunctionComponent<SettingsProps> = ({ settings }) => {
       <Grid item>
         <IconButton onClick={toggleDark}>
           <Brightness4 />
+        </IconButton>
+      </Grid>
+      <Grid item>
+        <IconButton onClick={exportConfig(console.log)}>
+          <Publish />
+        </IconButton>
+      </Grid>
+      <Grid item>
+        <IconButton onClick={importConfig(loadConfig)}>
+          <GetApp />
         </IconButton>
       </Grid>
     </Grid>
