@@ -9,6 +9,7 @@ import {
 } from '@material-ui/core';
 import { copyToClipBoard, clearClipboard } from '../helpers/clipboard';
 import { PasswordDisplayProps } from './types';
+import { LONG_WAIT, SHORT_WAIT } from '../../constants/time';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -42,14 +43,18 @@ const PasswordDisplay: React.FunctionComponent<PasswordDisplayProps> = ({
       window.clearTimeout(closeTimer);
       window.clearTimeout(resetClipboardTimer);
 
-      setCloseTimer(window.setTimeout(() => {
-        setCopied(false);
-        passwordSetters.forEach((setter) => setter(''));
-      }, 2000));
+      setCloseTimer(
+        window.setTimeout(() => {
+          setCopied(false);
+          passwordSetters.forEach((setter) => setter(''));
+        }, SHORT_WAIT)
+      );
 
-      setResetClipboardTimer(window.setTimeout(() => {
-        clearClipboard();
-      }, 5000));
+      setResetClipboardTimer(
+        window.setTimeout(() => {
+          clearClipboard();
+        }, LONG_WAIT)
+      );
     });
 
   return (

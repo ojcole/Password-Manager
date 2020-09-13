@@ -30,13 +30,15 @@ const deleteSite = (
   setSites: (sites: SiteTableRow[]) => void,
   siteSet: Map<string, number>
 ) => (id: number) => {
-  setSites(sites.filter((elem) => {
-    if (elem.id === id) {
-      siteSet.delete(elem.site);
-    }
+  setSites(
+    sites.filter((elem) => {
+      if (elem.id === id) {
+        siteSet.delete(elem.site);
+      }
 
-    return elem.id !== id;
-  }));
+      return elem.id !== id;
+    })
+  );
 };
 
 const Main: React.FunctionComponent<MainProps> = ({ settings }) => {
@@ -47,14 +49,16 @@ const Main: React.FunctionComponent<MainProps> = ({ settings }) => {
   const [filterText, setFilterText] = useState('');
   const [loaded, setLoaded] = useState(false);
 
-  const [siteSet, setSiteSet] = useState<Map<string, number>>(new Map<string, number>());
+  const [siteSet, setSiteSet] = useState<Map<string, number>>(
+    new Map<string, number>()
+  );
   const [sites, setSites] = useState<SiteTableRow[]>([]);
 
-  const addSite = (site: string) => {
+  const addSite = (site: string): boolean => {
     const num = siteSet.get(site);
     if (num !== undefined) {
       setSelected(num);
-      return;
+      return false;
     }
 
     setSites((sites) => {
@@ -63,18 +67,20 @@ const Main: React.FunctionComponent<MainProps> = ({ settings }) => {
         id: sites.reduce((prev, curr) => Math.max(prev, curr.id), 0) + 1,
       };
 
-      setSiteSet(sites => new Map(sites).set(site, newRow.id));
+      setSiteSet((sites) => new Map(sites).set(site, newRow.id));
       setSelected(newRow.id);
 
       return [...sites, newRow];
     });
+
+    return true;
   };
 
   useEffect(() => {
     sendLoadSites((sites) => {
       setSites(sites);
 
-      setSiteSet(siteMap => {
+      setSiteSet((siteMap) => {
         const newSiteSet = new Map(siteMap);
 
         sites.forEach(({ site, id }) => {
@@ -128,7 +134,11 @@ const Main: React.FunctionComponent<MainProps> = ({ settings }) => {
         <Breaker />
       </GridItemFlex>
       <GridItemFlex basis>
-        <SitesTools setText={setFilterText} addSite={addSite} enterPressed={selectIfOne} />
+        <SitesTools
+          setText={setFilterText}
+          addSite={addSite}
+          enterPressed={selectIfOne}
+        />
       </GridItemFlex>
       <GridItemFlex grow shrink minHeight={200} basis>
         <SiteTable

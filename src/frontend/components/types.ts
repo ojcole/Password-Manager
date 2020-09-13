@@ -61,7 +61,7 @@ export interface LongInputGridProps {
 }
 
 export interface AddSitesProps {
-  addSite: (site: string) => void;
+  addSite: (site: string) => boolean;
 }
 
 export type SitesToolsProps = FilterSearchProps & AddSitesProps;
