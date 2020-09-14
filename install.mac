@@ -1,0 +1,12 @@
+#!/bin/bash
+
+SOURCE=$(dirname ${BASH_SOURCE[0]})
+cd $SOURCE
+
+if type npm >/dev/null && type node >/dev/null; then
+    npm i
+    npm run prod
+    open ./build/dist/*.dmg
+else
+    echo "Please ensure npm and node are both installed"
+fi
