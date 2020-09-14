@@ -1,5 +1,5 @@
 import React from 'react';
-import { IconButton, Grid } from '@material-ui/core';
+import { IconButton, Grid, Tooltip } from '@material-ui/core';
 import { Brightness4, Publish, GetApp } from '@material-ui/icons';
 import { SettingsProps } from './types';
 import { importConfig, exportConfig } from '../messages/senders';
@@ -13,19 +13,25 @@ const SettingsBar: React.FunctionComponent<SettingsProps> = ({
   return (
     <Grid container justify="center">
       <Grid item>
-        <IconButton onClick={toggleDark}>
-          <Brightness4 />
-        </IconButton>
+        <Tooltip title="Toggle Dark Mode" arrow>
+          <IconButton onClick={toggleDark}>
+            <Brightness4 />
+          </IconButton>
+        </Tooltip>
       </Grid>
       <Grid item>
-        <IconButton onClick={exportConfig(console.log)}>
-          <Publish />
-        </IconButton>
+        <Tooltip title="Export Config" arrow>
+          <IconButton onClick={exportConfig(console.log)}>
+            <Publish />
+          </IconButton>
+        </Tooltip>
       </Grid>
       <Grid item>
-        <IconButton onClick={importConfig(loadConfig)}>
-          <GetApp />
-        </IconButton>
+        <Tooltip title="Import Config" arrow>
+          <IconButton onClick={importConfig(loadConfig)}>
+            <GetApp />
+          </IconButton>
+        </Tooltip>
       </Grid>
     </Grid>
   );

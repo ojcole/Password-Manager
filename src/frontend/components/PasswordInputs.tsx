@@ -3,7 +3,7 @@ import { PasswordInputsProps } from './types';
 import LongInput from './LongInput';
 import LongInputGrid from './LongInputGrid';
 import { Visibility, VisibilityOff } from '@material-ui/icons';
-import { IconButton } from '@material-ui/core';
+import { IconButton, Tooltip } from '@material-ui/core';
 
 const icons = [<Visibility />, <VisibilityOff />];
 const types = ['text', 'password'];
@@ -34,7 +34,11 @@ const PasswordInputs: React.FunctionComponent<PasswordInputsProps> = ({
           type={types[showText[i]]}
           InputProps={{
             endAdornment: (
-              <IconButton onClick={toggle(i)}>{icons[showText[i]]}</IconButton>
+              <Tooltip title="Show / Hide Password" arrow>
+                <IconButton onClick={toggle(i)}>
+                  {icons[showText[i]]}
+                </IconButton>
+              </Tooltip>
             ),
           }}
         />
