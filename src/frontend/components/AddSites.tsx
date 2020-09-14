@@ -36,7 +36,7 @@ const AddSites: React.FunctionComponent<AddSitesProps> = ({ addSite }) => {
 
   return (
     <Tooltip title="Added!" open={showTooltip} arrow>
-      <span>
+      <div>
         <LongInput
           label={'New Site'}
           placeholder={'Enter new site name'}
@@ -52,7 +52,7 @@ const AddSites: React.FunctionComponent<AddSitesProps> = ({ addSite }) => {
           onChange={(e) => setValue(e.target.value)}
           error={error}
         />
-      </span>
+      </div>
     </Tooltip>
   );
 };
