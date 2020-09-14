@@ -13,12 +13,14 @@ import { LONG_WAIT, SHORT_WAIT } from '../../constants/time';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    password: {
+    password: (props: boolean) => ({
       wordBreak: 'break-all',
       fontFamily: 'monospace',
       textAlign: 'center',
       color: theme.palette.text.primary,
-    },
+      opacity: props ? 0 : 1,
+      transition: props ? 'none' : 'opacity 0.3s ease',
+    }),
     copy: {
       marginTop: theme.spacing(1),
       marginLeft: 'auto',
@@ -31,8 +33,9 @@ const useStyles = makeStyles((theme: Theme) =>
 const PasswordDisplay: React.FunctionComponent<PasswordDisplayProps> = ({
   content,
   passwordSetters,
+  animate,
 }) => {
-  const classes = useStyles();
+  const classes = useStyles(animate);
   const [copied, setCopied] = useState(false);
   const [closeTimer, setCloseTimer] = useState(0);
   const [resetClipboardTimer, setResetClipboardTimer] = useState(0);

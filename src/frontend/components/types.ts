@@ -30,6 +30,7 @@ export interface PasswordInputsProps {
 export interface PasswordDisplayProps {
   content: string;
   passwordSetters: ((value: string) => void)[];
+  animate: boolean;
 }
 
 export interface FilterSearchProps {

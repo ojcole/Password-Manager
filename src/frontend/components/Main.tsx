@@ -69,12 +69,19 @@ const THeader: React.FunctionComponent = () => {
 };
 
 const Main: React.FunctionComponent<MainProps> = ({ settings }) => {
-  const [selected, setSelected] = useState(-1);
+  const [selected, setSel] = useState(-1);
+  const [animate, setAnimated] = useState(false);
   const [pass1, setPass1] = useState('');
   const [pass2, setPass2] = useState('');
   const [content, setContent] = useState('');
   const [filterText, setFilterText] = useState('');
   const [loaded, setLoaded] = useState(false);
+
+  const setSelected = (i: number) => {
+    setAnimated(true);
+    setSel(i);
+    setTimeout(() => setAnimated(false));
+  };
 
   const [siteSet, setSiteSet] = useState<Map<string, number>>(
     new Map<string, number>()
@@ -183,7 +190,11 @@ const Main: React.FunctionComponent<MainProps> = ({ settings }) => {
       </GridItemFlex>
       <GridItemFlex basis>
         <Breaker />
-        <PasswordDisplay content={content} passwordSetters={passwordSetters} />
+        <PasswordDisplay
+          content={content}
+          passwordSetters={passwordSetters}
+          animate={animate}
+        />
       </GridItemFlex>
     </MainGrid>
   );
