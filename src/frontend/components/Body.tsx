@@ -5,7 +5,8 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     body: {
       backgroundColor: theme.palette.background.default,
-      minHeight: '100%',
+      height: '100%',
+      overflow: 'auto',
     },
   })
 );

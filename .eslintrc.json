@@ -1,18 +1,18 @@
 {
-    "extends": ["eslint:recommended", "google"],
-    "env": {
-        "amd": true,
-        "es6": true,
-        "node": true,
-        "browser": true
+  "extends": ["eslint:recommended", "google"],
+  "env": {
+    "amd": true,
+    "es6": true,
+    "node": true,
+    "browser": true
+  },
+  "parserOptions": {
+    "ecmaVersion": 2018,
+    "ecmaFeatures": {
+      "jsx": true
     },
-    "parserOptions": {
-        "ecmaVersion": 2018,
-        "ecmaFeatures": {
-            "jsx": true
-        },
-        "sourceType": "module"
-    },
-    "plugins": ["react"],
-    "rules": {}
+    "sourceType": "module"
+  },
+  "plugins": ["react"],
+  "rules": {}
 }

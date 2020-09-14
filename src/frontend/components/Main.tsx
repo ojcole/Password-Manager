@@ -17,6 +17,7 @@ import SettingsBar from './SettingsBar';
 import SitesTools from './SitesTools';
 import { Config } from '../../electron/types';
 import { sitesToRows } from '../helpers/sites';
+import { Typography, makeStyles, Theme, createStyles } from '@material-ui/core';
 
 const filterSites = (
   sites: SiteTableRow[],
@@ -40,6 +41,30 @@ const deleteSite = (
 
       return elem.id !== id;
     })
+  );
+};
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    heading: {
+      width: '100%',
+      color: theme.palette.common.white,
+      backgroundColor: theme.palette.grey[900],
+      paddingTop: theme.spacing(1),
+      paddingBottom: theme.spacing(1),
+      paddingLeft: theme.spacing(2),
+      paddingRight: theme.spacing(2),
+    },
+  })
+);
+
+const THeader: React.FunctionComponent = () => {
+  const classes = useStyles();
+
+  return (
+    <div className={classes.heading}>
+      <Typography variant="h6">Sites</Typography>
+    </div>
   );
 };
 
@@ -139,7 +164,6 @@ const Main: React.FunctionComponent<MainProps> = ({ settings }) => {
           passwordSetters={passwordSetters}
           passwordValues={passwordValues}
         />
-        <Breaker />
       </GridItemFlex>
       <GridItemFlex basis>
         <SitesTools
@@ -148,6 +172,7 @@ const Main: React.FunctionComponent<MainProps> = ({ settings }) => {
           enterPressed={selectIfOne}
         />
       </GridItemFlex>
+      <THeader />
       <GridItemFlex grow shrink minHeight={200} basis>
         <SiteTable
           rows={filteredSites}

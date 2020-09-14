@@ -7,6 +7,7 @@ if type npm >/dev/null && type node >/dev/null; then
     npm i
     npm run prod
     open ./build/dist/*.dmg
+    rm -r ./build/dist/mac/*.app
 else
     echo "Please ensure npm and node are both installed"
 fi

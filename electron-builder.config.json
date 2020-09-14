@@ -1,0 +1,8 @@
+{
+  "appId": "com.ojcole.PasswordManager",
+  "productName": "Password Manager",
+  "mac": {
+    "target": ["dmg"],
+    "darkModeSupport": true
+  }
+}

@@ -1,72 +1,72 @@
 {
-    "name": "password-manager",
-    "version": "1.0.2",
-    "description": "A simple password managment tool written for electron",
-    "main": "build/main.js",
-    "author": "Oliver Cole <oliver@ojcole.com>",
-    "license": "MIT",
-    "sideEffects": [
-        "**/*.css"
-    ],
-    "scripts": {
-        "test": "spectron",
-        "preinstall": "npx npm-force-resolutions",
-        "start": "node generatePackage.js && cd build && electron .",
-        "dev": "rm -rf build && webpack --config=dev.webpack.config.js",
-        "build": "rm -rf build && webpack --config=prod.webpack.config.js",
-        "prod": "npm run build && node generatePackage.js && npm run pack",
-        "pack": "cd build && electron-builder"
-    },
-    "importSort": {
-        "js, .jsx, .ts, .tsx": {
-            "style": "module",
-            "parser": "typescript"
-        }
-    },
-    "resolutions": {
-        "minimist": "^1.2.5"
-    },
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/Hive7/Password-Manager.git"
-    },
-    "bugs": {
-        "url": "https://github.com/Hive7/Password-Manager/issues"
-    },
-    "homepage": "https://github.com/Hive7/Password-Manager#readme",
-    "devDependencies": {
-        "minimist": "^1.2.5",
-        "@babel/core": "^7.11.6",
-        "@babel/preset-env": "^7.11.5",
-        "@babel/preset-react": "^7.10.4",
-        "@babel/preset-typescript": "^7.10.4",
-        "@types/node-forge": "^0.9.5",
-        "@types/react": "^16.9.49",
-        "@types/react-dom": "^16.9.8",
-        "babel-loader": "^8.1.0",
-        "ejs-compiled-loader": "^3.0.0",
-        "ejs-loader": "^0.5.0",
-        "electron": "^10.1.1",
-        "electron-builder": "^22.8.0",
-        "electron-builder-squirrel-windows": "^22.8.1",
-        "eslint": "^7.8.1",
-        "eslint-config-google": "^0.14.0",
-        "html-webpack-plugin": "^4.4.1",
-        "spectron": "^11.1.0",
-        "typescript": "^4.0.2",
-        "webpack": "^4.44.1",
-        "webpack-bundle-analyzer": "^3.8.0",
-        "webpack-cli": "^3.3.12"
-    },
-    "dependencies": {
-        "@material-ui/core": "^4.11.0",
-        "@material-ui/icons": "^4.9.1",
-        "@types/json-stringify-safe": "^5.0.0",
-        "deepmerge": "^4.2.2",
-        "electron-store": "^6.0.0",
-        "escape-string-regexp": "^4.0.0",
-        "json-stringify-safe": "^5.0.1",
-        "react": "^16.13.1",
-        "react-dom": "^16.13.1"
+  "name": "password-manager",
+  "version": "1.0.3",
+  "description": "A simple password managment tool written for electron",
+  "main": "build/main.js",
+  "author": "Oliver Cole <oliver@ojcole.com>",
+  "license": "MIT",
+  "sideEffects": [
+    "**/*.css"
+  ],
+  "scripts": {
+    "test": "spectron",
+    "preinstall": "npx npm-force-resolutions",
+    "start": "node generatePackage.js && cd build && electron .",
+    "dev": "rm -rf build && webpack --config=dev.webpack.config.js",
+    "build": "rm -rf build && webpack --config=prod.webpack.config.js",
+    "prod": "npm run build && node generatePackage.js && npm run pack",
+    "pack": "cd build && electron-builder --config ../electron-builder.config.json"
+  },
+  "importSort": {
+    "js, .jsx, .ts, .tsx": {
+      "style": "module",
+      "parser": "typescript"
     }
+  },
+  "resolutions": {
+    "minimist": "^1.2.5"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Hive7/Password-Manager.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Hive7/Password-Manager/issues"
+  },
+  "homepage": "https://github.com/Hive7/Password-Manager#readme",
+  "devDependencies": {
+    "minimist": "^1.2.5",
+    "@babel/core": "^7.11.6",
+    "@babel/preset-env": "^7.11.5",
+    "@babel/preset-react": "^7.10.4",
+    "@babel/preset-typescript": "^7.10.4",
+    "@types/node-forge": "^0.9.5",
+    "@types/react": "^16.9.49",
+    "@types/react-dom": "^16.9.8",
+    "babel-loader": "^8.1.0",
+    "ejs-compiled-loader": "^3.0.0",
+    "ejs-loader": "^0.5.0",
+    "electron": "^10.1.1",
+    "electron-builder": "^22.8.0",
+    "electron-builder-squirrel-windows": "^22.8.1",
+    "eslint": "^7.8.1",
+    "eslint-config-google": "^0.14.0",
+    "html-webpack-plugin": "^4.4.1",
+    "spectron": "^11.1.0",
+    "typescript": "^4.0.2",
+    "webpack": "^4.44.1",
+    "webpack-bundle-analyzer": "^3.8.0",
+    "webpack-cli": "^3.3.12"
+  },
+  "dependencies": {
+    "@material-ui/core": "^4.11.0",
+    "@material-ui/icons": "^4.9.1",
+    "@types/json-stringify-safe": "^5.0.0",
+    "deepmerge": "^4.2.2",
+    "electron-store": "^6.0.0",
+    "escape-string-regexp": "^4.0.0",
+    "json-stringify-safe": "^5.0.1",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1"
+  }
 }
