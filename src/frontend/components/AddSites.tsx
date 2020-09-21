@@ -44,7 +44,7 @@ const AddSites: React.FunctionComponent<AddSitesProps> = ({ addSite }) => {
           onKeyPress={(event) => event.charCode === 13 && clickEvent()}
           InputProps={{
             endAdornment: (
-              <Button variant="contained" onClick={clickEvent}>
+              <Button variant="contained" onClick={clickEvent} tabIndex={-1}>
                 Add
               </Button>
             ),

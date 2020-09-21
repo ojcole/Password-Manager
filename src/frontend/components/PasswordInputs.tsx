@@ -35,7 +35,7 @@ const PasswordInputs: React.FunctionComponent<PasswordInputsProps> = ({
           InputProps={{
             endAdornment: (
               <Tooltip title="Show / Hide Password" arrow>
-                <IconButton onClick={toggle(i)}>
+                <IconButton onClick={toggle(i)} tabIndex={-1}>
                   {icons[showText[i]]}
                 </IconButton>
               </Tooltip>
