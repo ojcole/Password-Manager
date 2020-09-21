@@ -44,19 +44,22 @@ const deleteSite = (
   );
 };
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
+const useStyles = makeStyles((theme: Theme) => {
+  const bgColor =
+    theme.palette.grey[theme.palette.type === 'light' ? 300 : 900];
+
+  return createStyles({
     heading: {
       width: '100%',
-      color: theme.palette.common.white,
-      backgroundColor: theme.palette.grey[900],
+      color: theme.palette.getContrastText(bgColor),
+      backgroundColor: bgColor,
       paddingTop: theme.spacing(1),
       paddingBottom: theme.spacing(1),
       paddingLeft: theme.spacing(2),
       paddingRight: theme.spacing(2),
     },
-  })
-);
+  });
+});
 
 const THeader: React.FunctionComponent = () => {
   const classes = useStyles();
