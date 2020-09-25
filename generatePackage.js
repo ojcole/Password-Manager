@@ -28,7 +28,6 @@ previousPackage['build'] = {
   },
   win: {
     target: 'squirrel',
-    icon: 'build/icon.ico',
   },
   directories: {
     output: 'dist',

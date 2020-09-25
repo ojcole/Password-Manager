@@ -1,7 +1,7 @@
 {
   "name": "password-manager",
-  "version": "1.0.3",
-  "description": "A simple password managment tool written for electron",
+  "version": "1.1.0",
+  "description": "A simple password management tool written for electron",
   "main": "build/main.js",
   "author": "Oliver Cole <oliver@ojcole.com>",
   "license": "MIT",
@@ -14,7 +14,7 @@
     "start": "node generatePackage.js && cd build && electron .",
     "dev": "rm -rf build && webpack --config=dev.webpack.config.js",
     "build": "rm -rf build && webpack --config=prod.webpack.config.js",
-    "prod": "npm run build && node generatePackage.js && npm run pack",
+    "prod": "npm run build && cp assets/icon.png build/icon.png && node generatePackage.js && npm run pack",
     "pack": "cd build && electron-builder --config ../electron-builder.config.json"
   },
   "importSort": {
