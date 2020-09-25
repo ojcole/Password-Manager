@@ -14,8 +14,10 @@
     "start": "node generatePackage.js && cd build && electron .",
     "dev": "rm -rf build && webpack --config=dev.webpack.config.js",
     "build": "rm -rf build && webpack --config=prod.webpack.config.js",
-    "prod": "npm run build && cp assets/icon.png build/icon.png && node generatePackage.js && npm run pack",
-    "pack": "cd build && electron-builder --config ../electron-builder.config.json"
+    "preprod": "npm run build && cp assets/icon.png build/icon.png && node generatePackage.js",
+    "prod": "npm run preprod && npm run pack",
+    "pack": "cd build && electron-builder --config ../electron-builder.config.json",
+    "release": "npm run preprod && cd build && electron-builder --config ../electron-builder.config.json -p always --mac --linux --win --x64 -c.snap.publish=github"
   },
   "importSort": {
     "js, .jsx, .ts, .tsx": {
@@ -64,6 +66,7 @@
     "@types/json-stringify-safe": "^5.0.0",
     "deepmerge": "^4.2.2",
     "electron-store": "^6.0.0",
+    "electron-updater": "^4.3.5",
     "escape-string-regexp": "^4.0.0",
     "json-stringify-safe": "^5.0.1",
     "react": "^16.13.1",
