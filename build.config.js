@@ -58,7 +58,6 @@ const WebpackConfigBuilder = (config, extras) => {
       },
       node: {
         __dirname: false,
-        fs: 'empty',
       },
       devtool: 'source-map',
       context: __dirname,
@@ -92,7 +91,7 @@ const WebpackConfigBuilder = (config, extras) => {
 
   const frontendTarget = Object.assign({}, baseConfig, {
     entry: path.resolve(frontendPath, 'main.tsx'),
-    target: 'web',
+    target: 'electron-renderer',
     output: Object.assign({}, outputConfig, {
       filename: 'frontend.js',
     }),

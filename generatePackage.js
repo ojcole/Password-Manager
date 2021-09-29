@@ -5,35 +5,6 @@ const fs = require('fs');
 const rawData = fs.readFileSync('package.json');
 const previousPackage = JSON.parse(rawData);
 
-previousPackage['build'] = {
-  appId: 'com.ojcole.${name}',
-  productName: 'Password Manager',
-  copyright: 'Copyright © 2020 ${author}',
-  dmg: {
-    contents: [
-      {
-        x: 110,
-        y: 150,
-      },
-      {
-        x: 240,
-        y: 150,
-        type: 'link',
-        path: '/Applications',
-      },
-    ],
-  },
-  linux: {
-    target: ['AppImage', 'deb'],
-  },
-  win: {
-    target: 'squirrel',
-  },
-  directories: {
-    output: 'dist',
-  },
-};
-
 previousPackage['main'] = 'main.js';
 previousPackage['dependencies'] = {};
 previousPackage['devDependencies'] = {};

@@ -1,6 +1,6 @@
 import { BrowserWindow, Size, screen } from 'electron';
 import resolveHTML from './resolveHTML';
-import { entryHTML } from './config.json';
+import config from './config.json';
 
 const getDimensions = (): Size => screen.getPrimaryDisplay().workAreaSize;
 
@@ -12,6 +12,8 @@ export const createWindow = () => {
     height: height * 0.6,
     webPreferences: {
       nodeIntegration: true,
+      contextIsolation: false,
+      nativeWindowOpen: true,
     },
     show: false,
   });
@@ -20,7 +22,7 @@ export const createWindow = () => {
 export const initWindow = (window: BrowserWindow) => {
   window.maximize();
 
-  const htmlFile = resolveHTML(entryHTML);
+  const htmlFile = resolveHTML(config.entryHTML);
 
   window.loadFile(htmlFile);
 

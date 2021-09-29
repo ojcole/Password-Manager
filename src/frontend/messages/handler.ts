@@ -1,6 +1,6 @@
 import { messageMapping } from './types';
 
-const { ipcRenderer } = window.require('electron');
+const { ipcRenderer } = require('electron');
 
 export default () => {
   messageMapping.forEach((func, channel) => {

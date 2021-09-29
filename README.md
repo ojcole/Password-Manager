@@ -1,4 +1,4 @@
-# Password-Manager
+# Cole Vault
 
 Basic password manager tool for deterministic password generation
 

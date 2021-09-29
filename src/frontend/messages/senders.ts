@@ -11,7 +11,7 @@ import {
 } from '../../messages/types';
 import { sitesToRows } from '../helpers/sites';
 
-const electron = window.require('electron');
+const electron = require('electron');
 const ipcRenderer = electron.ipcRenderer;
 
 export const sendLoadSites = (setter: (rows: SiteTableRow[]) => void) => {
