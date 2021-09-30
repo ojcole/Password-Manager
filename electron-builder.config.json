@@ -2,16 +2,15 @@
   "appId": "com.ojcole.ColeVault",
   "productName": "Cole Vault",
   "mac": {
-    "target": ["dmg"],
+    "target": "DMG",
     "darkModeSupport": true
   },
   "linux": {
-    "target": ["AppImage", "deb"],
-    "category": "Utility",
-    "executableName": "cole-vault"
+    "target": "AppImage",
+    "category": "Utility"
   },
   "win": {
-    "target": "squirrel"
+    "target": "NSIS"
   },
   "dmg": {
     "contents": [
