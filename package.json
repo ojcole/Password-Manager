@@ -27,12 +27,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Hive7/Password-Manager.git"
+    "url": "git+https://github.com/ojcole/Password-Manager.git"
   },
   "bugs": {
-    "url": "https://github.com/Hive7/Password-Manager/issues"
+    "url": "https://github.com/ojcole/Password-Manager/issues"
   },
-  "homepage": "https://github.com/Hive7/Password-Manager#readme",
+  "homepage": "https://github.com/ojcole/Password-Manager#readme",
   "devDependencies": {
     "@babel/core": "^7.16.7",
     "@babel/preset-env": "^7.16.8",
