@@ -4,18 +4,18 @@ import {
   combinePasswords,
 } from '../../generation/generation';
 import SiteTable from './SiteTable';
-import { SiteTableRow, MainProps } from './types';
+import { SiteTableRow, MainProps, defaultSiteTableRow } from './types';
 import PasswordInputs from './PasswordInputs';
 import Breaker from './Breaker';
 import escapeStringRegexp from 'escape-string-regexp';
 import PasswordDisplay from './PasswordDisplay';
-import { symbols } from '../../generation/constants';
+import { limitedSymbols, symbols } from '../../generation/constants';
 import GridItemFlex from './GridItemFlex';
 import MainGrid from './MainGrid';
 import { sendLoadSites, sendSaveSites } from '../messages/senders';
 import SettingsBar from './SettingsBar';
 import SitesTools from './SitesTools';
-import { Config } from '../../electron/types';
+import { compareSites, Config, Site } from '../../electron/types';
 import { sitesToRows } from '../helpers/sites';
 import { Typography, makeStyles, Theme, createStyles } from '@material-ui/core';
 
@@ -28,21 +28,23 @@ const filterSites = (
   return sites.filter((elem) => regex.test(elem.site.toLowerCase()));
 };
 
-const deleteSite = (
-  sites: SiteTableRow[],
-  setSites: (sites: SiteTableRow[]) => void,
-  siteSet: Map<string, number>
-) => (id: number) => {
-  setSites(
-    sites.filter((elem) => {
-      if (elem.id === id) {
-        siteSet.delete(elem.site);
-      }
+const deleteSite =
+  (
+    sites: SiteTableRow[],
+    setSites: (sites: SiteTableRow[]) => void,
+    siteSet: Map<string, number>
+  ) =>
+  (id: number) => {
+    setSites(
+      sites.filter((elem) => {
+        if (elem.id === id) {
+          siteSet.delete(elem.site);
+        }
 
-      return elem.id !== id;
-    })
-  );
-};
+        return elem.id !== id;
+      })
+    );
+  };
 
 const useStyles = makeStyles((theme: Theme) => {
   const bgColor =
@@ -117,16 +119,40 @@ const Main: React.FunctionComponent<MainProps> = ({ settings }) => {
     setSites((sites) => {
       const newRow: SiteTableRow = {
         site,
+        length: 32,
+        limitedCharset: false,
         id: sites.reduce((prev, curr) => Math.max(prev, curr.id), 0) + 1,
       };
 
       setSiteSet((sites) => new Map(sites).set(site, newRow.id));
       setSelected(newRow.id);
 
-      return [...sites, newRow];
+      const newSites = [...sites, newRow];
+      newSites.sort(compareSites);
+
+      return newSites;
     });
 
     return true;
+  };
+
+  const updateSite = (id: number, updatedSite: Site) => {
+    setSites((s) => {
+      const newSites = [...s];
+
+      const updatedSites = newSites.map((site) => {
+        const newSite = Object.assign({}, site);
+        if (site.id === id) {
+          newSite.length = updatedSite.length;
+          newSite.limitedCharset = updatedSite.limitedCharset;
+        }
+        return newSite;
+      });
+
+      updatedSites.sort(compareSites);
+
+      return updatedSites;
+    });
   };
 
   useEffect(() => {
@@ -140,15 +166,16 @@ const Main: React.FunctionComponent<MainProps> = ({ settings }) => {
   }, [sites]);
 
   useEffect(() => {
-    const website = sites.find((elem) => elem.id === selected) || {
-      site: '',
-      id: -1,
-    };
+    const website: SiteTableRow =
+      sites.find((elem) => elem.id === selected) || defaultSiteTableRow;
     const master = combinePasswords(pass1, pass2);
-    generatePassword(website.site, master, symbols).then((content) => {
-      setContent(content);
-    });
-  }, [pass1, pass2, selected]);
+    const syms = website.limitedCharset ? limitedSymbols : symbols;
+    generatePassword(website.site, master, syms, website.length).then(
+      (content) => {
+        setContent(content);
+      }
+    );
+  }, [pass1, pass2, selected, sites]);
 
   const passwordSetters = [setPass1, setPass2];
   const passwordValues = [pass1, pass2];
@@ -189,7 +216,8 @@ const Main: React.FunctionComponent<MainProps> = ({ settings }) => {
           selected={selected}
           chooseSelected={setSelected}
           deleteRow={deleteSite(sites, setSites, siteSet)}
-        ></SiteTable>
+          updateRow={updateSite}
+        />
       </GridItemFlex>
       <GridItemFlex basis>
         <Breaker />

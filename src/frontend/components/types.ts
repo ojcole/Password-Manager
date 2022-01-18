@@ -6,10 +6,18 @@ interface SiteRow {
   selected: number;
   chooseSelected: (index: number) => void;
   deleteRow: (index: number) => void;
+  updateRow: (index: number, updatedSite: Site) => void;
 }
 
 export type SiteTableRow = Site & {
   id: number;
+};
+
+export const defaultSiteTableRow: SiteTableRow = {
+  site: '',
+  id: -1,
+  length: 32,
+  limitedCharset: false,
 };
 
 export type SiteTableProps = SiteRow & {

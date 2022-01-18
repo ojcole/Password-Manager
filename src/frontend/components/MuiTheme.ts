@@ -1,4 +1,4 @@
-import { createMuiTheme } from '@material-ui/core';
+import { createTheme } from '@material-ui/core';
 import merge from 'deepmerge';
 
 const baseTheme = {
@@ -19,9 +19,9 @@ const buildTheme = (theme: object): object => {
   return merge(baseTheme, theme);
 };
 
-export const lightTheme = createMuiTheme(buildTheme({}));
+export const lightTheme = createTheme(buildTheme({}));
 
-export const darkTheme = createMuiTheme(
+export const darkTheme = createTheme(
   buildTheme({
     palette: {
       type: 'dark',

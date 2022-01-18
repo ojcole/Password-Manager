@@ -5,7 +5,8 @@ export const combinePasswords = (...passwords: string[]) => {
 export const generatePassword = (
   website: string,
   master: string,
-  symbols: string
+  symbols: string,
+  length: number
 ): PromiseLike<string> => {
   const stringToHash = master + website.toUpperCase() + master;
 
@@ -14,7 +15,8 @@ export const generatePassword = (
     .then((buf) => {
       return Array.prototype.map
         .call(new Uint8Array(buf), (x) => ('00' + x.toString(16)).slice(-2))
-        .join('');
+        .join('')
+        .substring(0, 4 * length);
     })
     .then((hashed) => hexToPassword(hashed, symbols));
 };

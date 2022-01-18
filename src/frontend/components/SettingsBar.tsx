@@ -11,7 +11,7 @@ const SettingsBar: React.FunctionComponent<SettingsProps> = ({
   const { toggleDark } = settings;
 
   return (
-    <Grid container justify="center">
+    <Grid container justifyContent="center">
       <Grid item>
         <Tooltip title="Toggle Dark Mode" arrow>
           <IconButton onClick={toggleDark}>
